@@ -2,6 +2,7 @@
 title: "Dealing with Memory Leaks in JavaScript: Closures"
 author: "Mikołaj Wilczek"
 date: 2024-08-15T21:00:00+02:00
+canonicalURL: "https://mikolajwilczek.dev/blog/js-functions-leak/"
 ---
 
 Recently, I stumbled upon a couple of insightful blog posts that delve into a subtle yet significant issue in JavaScript: memory leaks caused by nested functions and closures. This topic is crucial, if you're a React developer as it explains the drawbacks in `useCallback` hooks.

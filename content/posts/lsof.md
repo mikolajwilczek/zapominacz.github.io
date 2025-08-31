@@ -2,6 +2,7 @@
 title: "Port is already in use issue on the macOS"
 date: 2023-05-20T20:23:00+02:00
 authors: ["Mikołaj Wilczek"]
+canonicalURL: "https://mikolajwilczek.dev/blog/lsof/"
 ---
 ## TLDR
 ```bash

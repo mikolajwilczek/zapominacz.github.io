@@ -2,6 +2,7 @@
 title: "Native tests for iOS expo modules"
 date: 2024-01-09T19:00:00+01:00
 authors: ["Mikołaj Wilczek"]
+canonicalURL: "https://mikolajwilczek.dev/blog/expo-ios-tests/"
 ---
 
 ## Problem
