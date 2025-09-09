@@ -2,6 +2,7 @@
 title: "How building, syncing and running the app works in Capacitor?"
 date: 2025-09-10T13:00:00+02:00
 authors: ["Mikołaj Wilczek"]
+draft: true
 ---
 
 Using advanced features of Capacitor requires you to understand exactly how the app is built and synced. In this article, we’ll briefly go through how a Capacitor app is built, synced, and run — to demystify the process.

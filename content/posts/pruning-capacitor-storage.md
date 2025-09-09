@@ -2,6 +2,7 @@
 title: "How to clear stuck secure storage data using Capacitor on iOS?"
 author: "Mikołaj Wilczek"
 date: 2025-08-28T21:00:00+02:00
+draft: true
 ---
 
 When building mobile apps with Capacitor, storing tokens and secrets securely is critical. `localStorage` is unsafe, and even secure HTTPS-only cookies are not always reliable, as they are not persisted across app reloads or terminations (if you use CapacitorCookies).
