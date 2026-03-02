@@ -1,160 +1,153 @@
-<svg xmlns='http://www.w3.org/2000/svg' width='900' height='1315' viewBox='0 0 900 1315' font-family="'Helvetica Neue', Arial, sans-serif">
-<rect x='0' y='0' width='900' height='1315' rx='0' fill='#1e1e2e'/>
+<svg xmlns='http://www.w3.org/2000/svg' xml:space='preserve' width='900' height='1315' viewBox='0 0 900 1315' font-family="'Helvetica Neue', Arial, sans-serif">
+<rect x='0' y='0' width='900' height='1315' fill='#1e1e2e'/>
 <rect x='20' y='20' width='860' height='95' rx='12' fill='#313244' stroke='#fab387' stroke-width='2'/>
-<text x='450' y='50' font-size='18' fill='#fab387' text-anchor='middle' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif">Actor Method Thunks — The Compiler Bug Behind SE-0313</text>
-<text x='450' y='72' font-size='11' fill='#a6e3a1' text-anchor='middle' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">BankAccount.deposit(amount:)  →  compiler-generated wrapper</text>
-<text x='450' y='93' font-size='11' fill='#a6adc8' text-anchor='middle' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">Root cause of regression since Swift 5.9  ·  Fixed by PR #86904</text>
-<text x='30' y='133' font-size='12' fill='#89b4fa' text-anchor='start' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif" letter-spacing='1.5'>WHAT IS A THUNK?</text>
+<text x='450' y='50' font-size='18' fill='#fab387' text-anchor='middle' font-weight='700'>Actor Method Thunks — The Compiler Bug Behind SE-0313</text>
+<text x='450' y='72' font-size='11' fill='#a6e3a1' text-anchor='middle' font-family="JetBrains Mono, 'Courier New', monospace">BankAccount.deposit(amount:)  →  compiler-generated wrapper</text>
+<text x='450' y='93' font-size='11' fill='#a6adc8' text-anchor='middle'>Root cause of regression since Swift 5.9  ·  Fixed by PR #86904</text>
+<text x='30' y='133' font-size='12' fill='#89b4fa' font-weight='700' letter-spacing='1.5'>WHAT IS A THUNK?</text>
 <line x1='30' y1='142' x2='870' y2='142' stroke='#89b4fa' stroke-width='0.5' opacity='0.3'/>
 <rect x='20' y='155' width='420' height='150' rx='10' fill='#252535'/>
 <rect x='20' y='155' width='420' height='28' rx='10' fill='#89b4fa'/>
-<rect x='20' y='169' width='420' height='14' rx='0' fill='#89b4fa'/>
-<text x='230' y='174' font-size='11' fill='#1e1e2e' text-anchor='middle' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif">You write this</text>
+<rect x='20' y='169' width='420' height='14' fill='#89b4fa'/>
+<text x='230' y='174' font-size='11' fill='#1e1e2e' text-anchor='middle' font-weight='700'>You write this</text>
 <rect x='30' y='193' width='400' height='98' rx='6' fill='#11111b'/>
-<text x='40' y='203' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Any method can be used as a value:</text>
-<text x='40' y='217' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">let fn = String.uppercased</text>
-<text x='40' y='231' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// type: (String) -&gt; () -&gt; String</text>
-<text x='40' y='245' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
-<text x='40' y='259' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">fn("hello")()</text>
-<text x='40' y='273' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// → "HELLO"</text>
+<text x='40' y='203' font-size='10' fill='#6c7086' font-family="JetBrains Mono, 'Courier New', monospace">// Any method can be used as a value:</text>
+<text x='40' y='217' font-size='10' fill='#a6e3a1' font-family="JetBrains Mono, 'Courier New', monospace">let fn = String.uppercased</text>
+<text x='40' y='231' font-size='10' fill='#89b4fa' font-family="JetBrains Mono, 'Courier New', monospace">// type: (String) -&gt; () -&gt; String</text>
+<text x='40' y='259' font-size='10' fill='#cdd6f4' font-family="JetBrains Mono, 'Courier New', monospace">fn("hello")()</text>
+<text x='40' y='273' font-size='10' fill='#a6e3a1' font-family="JetBrains Mono, 'Courier New', monospace">// → "HELLO"</text>
 <rect x='460' y='155' width='420' height='150' rx='10' fill='#252535'/>
 <rect x='460' y='155' width='420' height='28' rx='10' fill='#89b4fa'/>
-<rect x='460' y='169' width='420' height='14' rx='0' fill='#89b4fa'/>
-<text x='670' y='174' font-size='10' fill='#1e1e2e' text-anchor='middle' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif">Compiler generates (conceptually)</text>
+<rect x='460' y='169' width='420' height='14' fill='#89b4fa'/>
+<text x='670' y='174' font-size='10' fill='#1e1e2e' text-anchor='middle' font-weight='700'>Compiler generates (conceptually)</text>
 <rect x='470' y='193' width='400' height='98' rx='6' fill='#11111b'/>
-<text x='480' y='203' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Compiler generates (conceptually):</text>
-<text x='480' y='217' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">func __thunk(_ s: String)</text>
-<text x='480' y='231' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">        -&gt; () -&gt; String {</text>
-<text x='480' y='245' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">    return { s.uppercased() }</text>
-<text x='480' y='259' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">}</text>
-<text x='480' y='273' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Nonisolated — no actor involved</text>
-<text x='30' y='323' font-size='12' fill='#94e2d5' text-anchor='start' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif" letter-spacing='1.5'>THE ACTOR THUNK — WHAT SHOULD BE GENERATED</text>
+<text x='480' y='203' font-size='10' fill='#6c7086' font-family="JetBrains Mono, 'Courier New', monospace">// Compiler generates (conceptually):</text>
+<text x='480' y='217' font-size='10' fill='#a6adc8' font-family="JetBrains Mono, 'Courier New', monospace">func __thunk(_ s: String)</text>
+<text x='480' y='231' font-size='10' fill='#a6adc8' font-family="JetBrains Mono, 'Courier New', monospace">        -&gt; () -&gt; String {</text>
+<text x='480' y='245' font-size='10' fill='#cdd6f4' font-family="JetBrains Mono, 'Courier New', monospace">    return { s.uppercased() }</text>
+<text x='480' y='259' font-size='10' fill='#a6adc8' font-family="JetBrains Mono, 'Courier New', monospace">}</text>
+<text x='480' y='273' font-size='10' fill='#a6adc8' font-family="JetBrains Mono, 'Courier New', monospace">// Nonisolated — no actor involved</text>
+<text x='30' y='323' font-size='12' fill='#94e2d5' font-weight='700' letter-spacing='1.5'>THE ACTOR THUNK — WHAT SHOULD BE GENERATED</text>
 <line x1='30' y1='332' x2='870' y2='332' stroke='#94e2d5' stroke-width='0.5' opacity='0.3'/>
 <rect x='20' y='345' width='420' height='206' rx='10' fill='#252535'/>
 <rect x='20' y='345' width='420' height='28' rx='10' fill='#94e2d5'/>
-<rect x='20' y='359' width='420' height='14' rx='0' fill='#94e2d5'/>
-<text x='230' y='364' font-size='11' fill='#1e1e2e' text-anchor='middle' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif">You write this</text>
+<rect x='20' y='359' width='420' height='14' fill='#94e2d5'/>
+<text x='230' y='364' font-size='11' fill='#1e1e2e' text-anchor='middle' font-weight='700'>You write this</text>
 <rect x='30' y='383' width='400' height='98' rx='6' fill='#11111b'/>
-<text x='40' y='393' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Actor-isolated method reference:</text>
-<text x='40' y='407' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">let fn = BankAccount.deposit(amount:)</text>
-<text x='40' y='421' font-size='10' fill='#94e2d5' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// (isolated BankAccount)</text>
-<text x='40' y='435' font-size='10' fill='#94e2d5' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//   -&gt; (Double) -&gt; Void</text>
-<text x='40' y='449' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
-<text x='40' y='463' font-size='10' fill='#94e2d5' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// 'isolated' stays in the type</text>
+<text x='40' y='393' font-size='10' fill='#6c7086' font-family="JetBrains Mono, 'Courier New', monospace">// Actor-isolated method reference:</text>
+<text x='40' y='407' font-size='10' fill='#a6e3a1' font-family="JetBrains Mono, 'Courier New', monospace">let fn = BankAccount.deposit(amount:)</text>
+<text x='40' y='421' font-size='10' fill='#94e2d5' font-family="JetBrains Mono, 'Courier New', monospace">// (isolated BankAccount)</text>
+<text x='40' y='435' font-size='10' fill='#94e2d5' font-family="JetBrains Mono, 'Courier New', monospace">//   -&gt; (Double) -&gt; Void</text>
+<text x='40' y='463' font-size='10' fill='#94e2d5' font-family="JetBrains Mono, 'Courier New', monospace">// 'isolated' stays in the type</text>
 <rect x='460' y='345' width='420' height='206' rx='10' fill='#252535'/>
 <rect x='460' y='345' width='420' height='28' rx='10' fill='#94e2d5'/>
-<rect x='460' y='359' width='420' height='14' rx='0' fill='#94e2d5'/>
-<text x='670' y='364' font-size='10' fill='#1e1e2e' text-anchor='middle' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif">Compiler should generate (conceptually)</text>
+<rect x='460' y='359' width='420' height='14' fill='#94e2d5'/>
+<text x='670' y='364' font-size='10' fill='#1e1e2e' text-anchor='middle' font-weight='700'>Compiler should generate (conceptually)</text>
 <rect x='470' y='383' width='400' height='154' rx='6' fill='#11111b'/>
-<text x='480' y='393' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Compiler should generate (conceptually):</text>
-<text x='480' y='407' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">func __thunk(</text>
-<text x='480' y='421' font-size='10' fill='#94e2d5' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">    account: isolated BankAccount</text>
-<text x='480' y='435' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">) -&gt; (Double) -&gt; Void {</text>
-<text x='480' y='449' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">    return { amount in</text>
-<text x='480' y='463' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">        account.deposit(amount: amount)</text>
-<text x='480' y='477' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">        // ✓ sync on account's executor</text>
-<text x='480' y='491' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">    }</text>
-<text x='480' y='505' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">}</text>
-<text x='480' y='519' font-size='10' fill='#94e2d5' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Thunk isolation = first param's isolation</text>
-<text x='30' y='569' font-size='12' fill='#f38ba8' text-anchor='start' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif" letter-spacing='1.5'>THE BUG — ISOLATION COULDN’T BE COMPUTED</text>
+<text x='480' y='393' font-size='10' fill='#6c7086' font-family="JetBrains Mono, 'Courier New', monospace">// Compiler should generate (conceptually):</text>
+<text x='480' y='407' font-size='10' fill='#a6adc8' font-family="JetBrains Mono, 'Courier New', monospace">func __thunk(</text>
+<text x='480' y='421' font-size='10' fill='#94e2d5' font-family="JetBrains Mono, 'Courier New', monospace">    account: isolated BankAccount</text>
+<text x='480' y='435' font-size='10' fill='#a6adc8' font-family="JetBrains Mono, 'Courier New', monospace">) -&gt; (Double) -&gt; Void {</text>
+<text x='480' y='449' font-size='10' fill='#cdd6f4' font-family="JetBrains Mono, 'Courier New', monospace">    return { amount in</text>
+<text x='480' y='463' font-size='10' fill='#a6e3a1' font-family="JetBrains Mono, 'Courier New', monospace">        account.deposit(amount: amount)</text>
+<text x='480' y='477' font-size='10' fill='#a6e3a1' font-family="JetBrains Mono, 'Courier New', monospace">        // ✓ sync on account's executor</text>
+<text x='480' y='491' font-size='10' fill='#cdd6f4' font-family="JetBrains Mono, 'Courier New', monospace">    }</text>
+<text x='480' y='505' font-size='10' fill='#a6adc8' font-family="JetBrains Mono, 'Courier New', monospace">}</text>
+<text x='480' y='519' font-size='10' fill='#94e2d5' font-family="JetBrains Mono, 'Courier New', monospace">// Thunk isolation = first param's isolation</text>
+<text x='30' y='569' font-size='12' fill='#f38ba8' font-weight='700' letter-spacing='1.5'>THE BUG — ISOLATION COULDN’T BE COMPUTED</text>
 <line x1='30' y1='578' x2='870' y2='578' stroke='#f38ba8' stroke-width='0.5' opacity='0.3'/>
 <rect x='20' y='591' width='860' height='210' rx='6' fill='#11111b'/>
-<text x='30' y='601' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Step 1: Parse function type</text>
-<text x='30' y='615' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//   (isolated BankAccount) -&gt; (Double) -&gt; Void  ✓</text>
-<text x='30' y='629' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
-<text x='30' y='643' font-size='10' fill='#f38ba8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Step 2: Determine thunk isolation  ← BROKEN HERE</text>
-<text x='30' y='657' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//   Isolated first param → thunk should inherit isolation</text>
-<text x='30' y='671' font-size='10' fill='#f38ba8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//   COMPILER: no machinery to propagate isolated info  ❌</text>
-<text x='30' y='685' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
-<text x='30' y='699' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Step 3: Emit IR</text>
-<text x='30' y='713' font-size='10' fill='#f38ba8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//   ❌ Wrong IR / broken types at call site</text>
-<text x='30' y='727' font-size='10' fill='#f38ba8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//   ❌ error/warning: 'actor-isolated method deposit(amount:)</text>
-<text x='30' y='741' font-size='10' fill='#f38ba8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//      in synchronous nonisolated context'</text>
-<text x='30' y='755' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
-<text x='30' y='769' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// PR description: 'it won't be possible to compute</text>
-<text x='30' y='783' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//   a correct isolation for the thunk'</text>
+<text x='30' y='601' font-size='10' fill='#6c7086' font-family="JetBrains Mono, 'Courier New', monospace">// Step 1: Parse function type</text>
+<text x='30' y='615' font-size='10' fill='#a6e3a1' font-family="JetBrains Mono, 'Courier New', monospace">//   (isolated BankAccount) -&gt; (Double) -&gt; Void  ✓</text>
+<text x='30' y='643' font-size='10' fill='#f38ba8' font-family="JetBrains Mono, 'Courier New', monospace">// Step 2: Determine thunk isolation  ← BROKEN HERE</text>
+<text x='30' y='657' font-size='10' fill='#cdd6f4' font-family="JetBrains Mono, 'Courier New', monospace">//   Isolated first param → thunk should inherit isolation</text>
+<text x='30' y='671' font-size='10' fill='#f38ba8' font-family="JetBrains Mono, 'Courier New', monospace">//   COMPILER: no machinery to propagate isolated info  ❌</text>
+<text x='30' y='699' font-size='10' fill='#6c7086' font-family="JetBrains Mono, 'Courier New', monospace">// Step 3: Emit IR</text>
+<text x='30' y='713' font-size='10' fill='#f38ba8' font-family="JetBrains Mono, 'Courier New', monospace">//   ❌ Wrong IR / broken types at call site</text>
+<text x='30' y='727' font-size='10' fill='#f38ba8' font-family="JetBrains Mono, 'Courier New', monospace">//   ❌ error/warning: 'actor-isolated method deposit(amount:)</text>
+<text x='30' y='741' font-size='10' fill='#f38ba8' font-family="JetBrains Mono, 'Courier New', monospace">//      in synchronous nonisolated context'</text>
+<text x='30' y='769' font-size='10' fill='#6c7086' font-family="JetBrains Mono, 'Courier New', monospace">// PR description: 'it won't be possible to compute</text>
+<text x='30' y='783' font-size='10' fill='#6c7086' font-family="JetBrains Mono, 'Courier New', monospace">//   a correct isolation for the thunk'</text>
 <rect x='170' y='809' width='560' height='28' rx='14' fill='#3a1a1a' stroke='#f38ba8' stroke-width='1.5'/>
-<text x='450' y='827' font-size='10' fill='#f38ba8' text-anchor='middle' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif">Root cause: missing machinery to propagate isolated param → thunk isolation</text>
-<text x='30' y='855' font-size='12' fill='#a6e3a1' text-anchor='start' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif" letter-spacing='1.5'>RESTORED BY PR #86904  (merged to main — not yet in any release)</text>
+<text x='450' y='827' font-size='10' fill='#f38ba8' text-anchor='middle' font-weight='700'>Root cause: missing machinery to propagate isolated param → thunk isolation</text>
+<text x='30' y='855' font-size='12' fill='#a6e3a1' font-weight='700' letter-spacing='1.5'>RESTORED BY PR #86904  (merged to main — not yet in any release)</text>
 <line x1='30' y1='864' x2='870' y2='864' stroke='#a6e3a1' stroke-width='0.5' opacity='0.3'/>
 <rect x='16' y='873' width='868' height='214' rx='10' fill='#1a2e1a' stroke='#a6e3a1' stroke-width='1.5'/>
 <rect x='20' y='877' width='420' height='206' rx='10' fill='#252535'/>
 <rect x='20' y='877' width='420' height='28' rx='10' fill='#a6e3a1'/>
-<rect x='20' y='891' width='420' height='14' rx='0' fill='#a6e3a1'/>
-<text x='230' y='896' font-size='11' fill='#1e1e2e' text-anchor='middle' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif">What the PR added</text>
+<rect x='20' y='891' width='420' height='14' fill='#a6e3a1'/>
+<text x='230' y='896' font-size='11' fill='#1e1e2e' text-anchor='middle' font-weight='700'>What the PR added</text>
 <rect x='30' y='915' width='400' height='140' rx='6' fill='#11111b'/>
-<text x='40' y='925' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// PR #86904 added the missing machinery:</text>
-<text x='40' y='939' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// 1. Detect isolated first parameter</text>
-<text x='40' y='953' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//    in the function type</text>
-<text x='40' y='967' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// 2. Propagate its isolation to the thunk</text>
-<text x='40' y='981' font-size='10' fill='#94e2d5' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//    → thunk isolation = isolated(account)</text>
-<text x='40' y='995' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// 3. Emit correct IR:</text>
-<text x='40' y='1009' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//    executor hop ✓</text>
-<text x='40' y='1023' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//    isolated self forwarded ✓</text>
-<text x='40' y='1037' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//    correct type in output ✓</text>
+<text x='40' y='925' font-size='10' fill='#6c7086' font-family="JetBrains Mono, 'Courier New', monospace">// PR #86904 added the missing machinery:</text>
+<text x='40' y='939' font-size='10' fill='#a6e3a1' font-family="JetBrains Mono, 'Courier New', monospace">// 1. Detect isolated first parameter</text>
+<text x='40' y='953' font-size='10' fill='#a6e3a1' font-family="JetBrains Mono, 'Courier New', monospace">//    in the function type</text>
+<text x='40' y='967' font-size='10' fill='#a6e3a1' font-family="JetBrains Mono, 'Courier New', monospace">// 2. Propagate its isolation to the thunk</text>
+<text x='40' y='981' font-size='10' fill='#94e2d5' font-family="JetBrains Mono, 'Courier New', monospace">//    → thunk isolation = isolated(account)</text>
+<text x='40' y='995' font-size='10' fill='#a6e3a1' font-family="JetBrains Mono, 'Courier New', monospace">// 3. Emit correct IR:</text>
+<text x='40' y='1009' font-size='10' fill='#a6e3a1' font-family="JetBrains Mono, 'Courier New', monospace">//    executor hop ✓</text>
+<text x='40' y='1023' font-size='10' fill='#a6e3a1' font-family="JetBrains Mono, 'Courier New', monospace">//    isolated self forwarded ✓</text>
+<text x='40' y='1037' font-size='10' fill='#a6e3a1' font-family="JetBrains Mono, 'Courier New', monospace">//    correct type in output ✓</text>
 <rect x='460' y='877' width='420' height='206' rx='10' fill='#252535'/>
 <rect x='460' y='877' width='420' height='28' rx='10' fill='#a6e3a1'/>
-<rect x='460' y='891' width='420' height='14' rx='0' fill='#a6e3a1'/>
-<text x='670' y='896' font-size='10' fill='#1e1e2e' text-anchor='middle' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif">Unapplied form now compiles</text>
+<rect x='460' y='891' width='420' height='14' fill='#a6e3a1'/>
+<text x='670' y='896' font-size='10' fill='#1e1e2e' text-anchor='middle' font-weight='700'>Unapplied form now compiles</text>
 <rect x='470' y='915' width='400' height='154' rx='6' fill='#11111b'/>
-<text x='480' y='925' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Unapplied form now compiles:</text>
-<text x='480' y='939' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">let fn  = BankAccount.deposit(amount:)</text>
-<text x='480' y='953' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// ✓ (isolated BankAccount) -&gt; (Double) -&gt; Void</text>
-<text x='480' y='967' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
-<text x='480' y='981' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Partial application: context-dependent</text>
-<text x='480' y='995' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// actorInstance.deposit  ✓  (already isolated to it)</text>
-<text x='480' y='1009' font-size='10' fill='#f38ba8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// BankAccount().deposit  ❌  (from outside)</text>
-<text x='480' y='1023' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
-<text x='480' y='1037' font-size='10' fill='#94e2d5' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Thunk fixed for unapplied form ✓</text>
-<text x='480' y='1051' font-size='10' fill='#94e2d5' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// → SE-0313 unapplied refs work as intended</text>
-<text x='30' y='1121' font-size='12' fill='#6c7086' text-anchor='start' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif" letter-spacing='1.5'>REFERENCES</text>
+<text x='480' y='925' font-size='10' fill='#6c7086' font-family="JetBrains Mono, 'Courier New', monospace">// Unapplied form now compiles:</text>
+<text x='480' y='939' font-size='10' fill='#a6e3a1' font-family="JetBrains Mono, 'Courier New', monospace">let fn  = BankAccount.deposit(amount:)</text>
+<text x='480' y='953' font-size='10' fill='#a6e3a1' font-family="JetBrains Mono, 'Courier New', monospace">// ✓ (isolated BankAccount) -&gt; (Double) -&gt; Void</text>
+<text x='480' y='981' font-size='10' fill='#6c7086' font-family="JetBrains Mono, 'Courier New', monospace">// Partial application: context-dependent</text>
+<text x='480' y='995' font-size='10' fill='#a6e3a1' font-family="JetBrains Mono, 'Courier New', monospace">// actorInstance.deposit  ✓  (already isolated to it)</text>
+<text x='480' y='1009' font-size='10' fill='#f38ba8' font-family="JetBrains Mono, 'Courier New', monospace">// BankAccount().deposit  ❌  (from outside)</text>
+<text x='480' y='1037' font-size='10' fill='#94e2d5' font-family="JetBrains Mono, 'Courier New', monospace">// Thunk fixed for unapplied form ✓</text>
+<text x='480' y='1051' font-size='10' fill='#94e2d5' font-family="JetBrains Mono, 'Courier New', monospace">// → SE-0313 unapplied refs work as intended</text>
+<text x='30' y='1121' font-size='12' fill='#6c7086' font-weight='700' letter-spacing='1.5'>REFERENCES</text>
 <line x1='30' y1='1130' x2='870' y2='1130' stroke='#6c7086' stroke-width='0.5' opacity='0.3'/>
 <rect x='20' y='1143' width='860' height='110' rx='8' fill='#252535'/>
 <a href='https://github.com/swiftlang/swift-evolution/blob/main/proposals/0313-actor-isolation-control.md' target='_blank'>
-<text x='36' y='1159' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">↗</text>
-<text x='52' y='1159' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">SE-0313 · Improved control over actor isolation</text>
+<text x='36' y='1159' font-size='10' fill='#89b4fa'>↗</text>
+<text x='52' y='1159' font-size='10' fill='#89b4fa'>SE-0313 · Improved control over actor isolation</text>
 </a>
 <a href='https://github.com/swiftlang/swift/issues/80454' target='_blank'>
-<text x='36' y='1179' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">↗</text>
-<text x='52' y='1179' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">GitHub issue #80454 · Confusing diagnostics for partially applied actor method references</text>
+<text x='36' y='1179' font-size='10' fill='#89b4fa'>↗</text>
+<text x='52' y='1179' font-size='10' fill='#89b4fa'>GitHub issue #80454 · Confusing diagnostics for partially applied actor method references</text>
 </a>
 <a href='https://forums.swift.org/t/something-broke-se-0313/78958' target='_blank'>
-<text x='36' y='1199' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">↗</text>
-<text x='52' y='1199' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">Swift Forums · Something broke SE-0313</text>
+<text x='36' y='1199' font-size='10' fill='#89b4fa'>↗</text>
+<text x='52' y='1199' font-size='10' fill='#89b4fa'>Swift Forums · Something broke SE-0313</text>
 </a>
 <a href='https://github.com/swiftlang/swift/pull/86904' target='_blank'>
-<text x='36' y='1219' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">↗</text>
-<text x='52' y='1219' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">PR #86904 · Fix thunk emission for function types with isolated parameters</text>
+<text x='36' y='1219' font-size='10' fill='#89b4fa'>↗</text>
+<text x='52' y='1219' font-size='10' fill='#89b4fa'>PR #86904 · Fix thunk emission for function types with isolated parameters</text>
 </a>
 <a href='https://github.com/apple/swift/pull/34051' target='_blank'>
-<text x='36' y='1239' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">↗</text>
-<text x='52' y='1239' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">PR #34051 · Prohibit partial application of actor-isolated methods</text>
+<text x='36' y='1239' font-size='10' fill='#89b4fa'>↗</text>
+<text x='52' y='1239' font-size='10' fill='#89b4fa'>PR #34051 · Prohibit partial application of actor-isolated methods</text>
 </a>
 <line x1='20' y1='1271' x2='880' y2='1271' stroke='#45475a' stroke-width='0.5' opacity='0.3'/>
 <a href='https://bsky.app/profile/kingawilczek.bsky.social' target='_blank'>
 <path d='M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266 .902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.204-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z' fill='#89b4fa' transform='translate(32.5,1288.0) scale(0.5833)'/>
-<text x='51.5' y='1298.92' font-size='9.5' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">kingawilczek</text>
+<text x='51.5' y='1298.92' font-size='9.5' fill='#89b4fa'>kingawilczek</text>
 </a>
 <a href='https://x.com/kiwi_code' target='_blank'>
 <path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z' fill='#a6adc8' transform='translate(190.8,1288.0) scale(0.5833)'/>
-<text x='209.75' y='1298.92' font-size='9.5' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">kiwi_code</text>
+<text x='209.75' y='1298.92' font-size='9.5' fill='#a6adc8'>kiwi_code</text>
 </a>
 <a href='https://www.reddit.com/u/wolfie_is_free' target='_blank'>
 <path d='M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326 .326 0 0 0-.232-.095z' fill='#fab387' transform='translate(327.0,1288.0) scale(0.5833)'/>
-<text x='346.0' y='1298.92' font-size='9.5' fill='#fab387' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">wolfie_is_free</text>
+<text x='346.0' y='1298.92' font-size='9.5' fill='#fab387'>wolfie_is_free</text>
 </a>
 <a href='https://www.linkedin.com/in/kinga-wilczek' target='_blank'>
 <path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z' fill='#89b4fa' transform='translate(479.8,1288.0) scale(0.5833)'/>
-<text x='498.75' y='1298.92' font-size='9.5' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">kinga-wilczek</text>
+<text x='498.75' y='1298.92' font-size='9.5' fill='#89b4fa'>kinga-wilczek</text>
 </a>
 <a href='https://github.com/kingawilczek' target='_blank'>
 <path d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12' fill='#cba6f7' transform='translate(632.5,1288.0) scale(0.5833)'/>
-<text x='651.5' y='1298.92' font-size='9.5' fill='#cba6f7' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">kingawilczek</text>
+<text x='651.5' y='1298.92' font-size='9.5' fill='#cba6f7'>kingawilczek</text>
 </a>
 <a href='https://blog.kiwicode.dev' target='_blank'>
 <circle cx='789.5' cy='1295.0' r='7.0' fill='none' stroke='#94e2d5' stroke-width='1.4'/>
 <ellipse cx='789.5' cy='1295.0' rx='2.9' ry='7.0' fill='none' stroke='#94e2d5' stroke-width='1.4'/>
 <line x1='782.5' y1='1295.0' x2='796.5' y2='1295.0' stroke='#94e2d5' stroke-width='1.4'/>
-<text x='801.5' y='1298.92' font-size='9.5' fill='#94e2d5' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">kiwicode.dev</text>
+<text x='801.5' y='1298.92' font-size='9.5' fill='#94e2d5'>kiwicode.dev</text>
 </a>
 </svg>
