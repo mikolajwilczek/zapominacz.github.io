@@ -1,0 +1,232 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='900' height='1639' viewBox='0 0 900 1639' font-family="'Helvetica Neue', Arial, sans-serif">
+<rect x='0' y='0' width='900' height='1639' rx='0' fill='#1e1e2e'/>
+<defs>
+  <marker id='ag' viewBox='0 0 10 10' refX='9' refY='5'
+          markerWidth='5' markerHeight='5' orient='auto'>
+    <path d='M 0 0 L 10 5 L 0 10 z' fill='#a6e3a1'/>
+  </marker>
+  <marker id='ab' viewBox='0 0 10 10' refX='9' refY='5'
+          markerWidth='5' markerHeight='5' orient='auto'>
+    <path d='M 0 0 L 10 5 L 0 10 z' fill='#89b4fa'/>
+  </marker>
+  <marker id='at' viewBox='0 0 10 10' refX='9' refY='5'
+          markerWidth='5' markerHeight='5' orient='auto'>
+    <path d='M 0 0 L 10 5 L 0 10 z' fill='#94e2d5'/>
+  </marker>
+</defs>
+<rect x='20' y='20' width='860' height='95' rx='12' fill='#313244' stroke='#94e2d5' stroke-width='2'/>
+<text x='450' y='50' font-size='20' fill='#94e2d5' text-anchor='middle' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif">Unapplied &amp; Partially Applied Actor Method References</text>
+<text x='450' y='72' font-size='11' fill='#a6e3a1' text-anchor='middle' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">BankAccount.deposit(amount:)  ·  BankAccount().deposit</text>
+<text x='450' y='93' font-size='11' fill='#a6adc8' text-anchor='middle' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">Promised by SE-0313  ·  broken since Swift 5.9  ·  PR #86904 merged to main — not yet in any release</text>
+<text x='30' y='133' font-size='12' fill='#89b4fa' text-anchor='start' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif" letter-spacing='1.5'>HOW ACTOR METHOD REFERENCES WORK</text>
+<line x1='30' y1='142' x2='870' y2='142' stroke='#89b4fa' stroke-width='0.5' opacity='0.3'/>
+<rect x='20' y='155' width='280' height='206' rx='10' fill='#252535'/>
+<rect x='20' y='155' width='280' height='28' rx='10' fill='#89b4fa'/>
+<rect x='20' y='169' width='280' height='14' rx='0' fill='#89b4fa'/>
+<text x='160' y='174' font-size='10' fill='#1e1e2e' text-anchor='middle' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif">Regular — non-actor</text>
+<rect x='28' y='193' width='264' height='126' rx='6' fill='#11111b'/>
+<text x='38' y='203' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Unapplied (type-level):</text>
+<text x='38' y='217' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">let fn = String.uppercased</text>
+<text x='38' y='231' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// (String) -&gt; () -&gt; String</text>
+<text x='38' y='245' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
+<text x='38' y='259' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Partially applied (instance):</text>
+<text x='38' y='273' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">let fn2 = "hello".uppercased</text>
+<text x='38' y='287' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// () -&gt; String</text>
+<text x='38' y='301' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Works in any context</text>
+<rect x='310' y='155' width='280' height='206' rx='10' fill='#252535'/>
+<rect x='310' y='155' width='280' height='28' rx='10' fill='#94e2d5'/>
+<rect x='310' y='169' width='280' height='14' rx='0' fill='#94e2d5'/>
+<text x='450' y='174' font-size='10' fill='#1e1e2e' text-anchor='middle' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif">Unapplied — type-level (SE-0313)</text>
+<rect x='318' y='193' width='264' height='112' rx='6' fill='#11111b'/>
+<text x='328' y='203' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">actor BankAccount {</text>
+<text x='328' y='217' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">    func deposit(amount: Double) { ... }</text>
+<text x='328' y='231' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">}  // implicit: isolated self</text>
+<text x='328' y='245' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">let fn = BankAccount.deposit(amount:)</text>
+<text x='328' y='259' font-size='10' fill='#94e2d5' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// (isolated BankAccount)</text>
+<text x='328' y='273' font-size='10' fill='#94e2d5' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//   -&gt; (Double) -&gt; Void</text>
+<text x='328' y='287' font-size='10' fill='#94e2d5' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// SE-0313 — 'isolated' in type</text>
+<rect x='600' y='155' width='280' height='206' rx='10' fill='#252535'/>
+<rect x='600' y='155' width='280' height='28' rx='10' fill='#fab387'/>
+<rect x='600' y='169' width='280' height='14' rx='0' fill='#fab387'/>
+<text x='740' y='174' font-size='10' fill='#1e1e2e' text-anchor='middle' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif">Partially applied — instance-bound</text>
+<rect x='608' y='193' width='264' height='154' rx='6' fill='#11111b'/>
+<text x='618' y='203' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">actor BankAccount {</text>
+<text x='618' y='217' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">    func deposit(amount: Double) { ... }</text>
+<text x='618' y='231' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">}</text>
+<text x='618' y='245' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">func apply(</text>
+<text x='618' y='259' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">    account: isolated BankAccount</text>
+<text x='618' y='273' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">) {</text>
+<text x='618' y='287' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">    let fn = account.deposit</text>
+<text x='618' y='301' font-size='10' fill='#fab387' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">    // (Double) -&gt; Void</text>
+<text x='618' y='315' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">    // ✓ already isolated to account</text>
+<text x='618' y='329' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">}</text>
+<text x='30' y='379' font-size='12' fill='#f38ba8' text-anchor='start' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif" letter-spacing='1.5'>THE REGRESSION</text>
+<line x1='30' y1='388' x2='870' y2='388' stroke='#f38ba8' stroke-width='0.5' opacity='0.3'/>
+<rect x='20' y='401' width='860' height='182' rx='6' fill='#11111b'/>
+<text x='30' y='411' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// — Unapplied type-level reference (the SE-0313 regression):</text>
+<text x='30' y='425' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">let fn = BankAccount.deposit(amount:)</text>
+<text x='30' y='439' font-size='10' fill='#f9e2af' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// warning/error: call to actor-isolated instance method</text>
+<text x='30' y='453' font-size='10' fill='#f9e2af' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//   'deposit(amount:)' in a synchronous nonisolated context</text>
+<text x='30' y='467' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
+<text x='30' y='481' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Root cause: broken thunk emission for isolated parameters</text>
+<text x='30' y='495' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Fixed by PR #86904.</text>
+<text x='30' y='509' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
+<text x='30' y='523' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// — Instance-bound in nonisolated context:</text>
+<text x='30' y='537' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">let fn2 = BankAccount().deposit</text>
+<text x='30' y='551' font-size='10' fill='#f38ba8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// error: can not be partially applied  (PR #34051)</text>
+<text x='30' y='565' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// ✓ correct only when called from within that actor</text>
+<text x='30' y='601' font-size='12' fill='#f9e2af' text-anchor='start' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif" letter-spacing='1.5'>SCOPE — WHICH METHOD KINDS ARE AFFECTED</text>
+<line x1='30' y1='610' x2='870' y2='610' stroke='#f9e2af' stroke-width='0.5' opacity='0.3'/>
+<rect x='20' y='623' width='280' height='216' rx='10' fill='#252535'/>
+<rect x='20' y='623' width='280' height='28' rx='10' fill='#a6e3a1'/>
+<rect x='20' y='637' width='280' height='14' rx='0' fill='#a6e3a1'/>
+<text x='160' y='642' font-size='10' fill='#1e1e2e' text-anchor='middle' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif">nonisolated — always works ✓</text>
+<rect x='28' y='661' width='264' height='168' rx='6' fill='#11111b'/>
+<text x='38' y='671' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">nonisolated func withdraw(</text>
+<text x='38' y='685' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">    amount: Double) { ... }</text>
+<text x='38' y='699' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
+<text x='38' y='713' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Both forms ✓:</text>
+<text x='38' y='727' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">BankAccount.withdraw  ✓</text>
+<text x='38' y='741' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">BankAccount().withdraw  ✓</text>
+<text x='38' y='755' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
+<text x='38' y='769' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// No 'isolated' in type</text>
+<text x='38' y='783' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Never affected</text>
+<text x='38' y='797' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
+<text x='38' y='811' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
+<rect x='310' y='623' width='280' height='216' rx='10' fill='#252535'/>
+<rect x='310' y='623' width='280' height='28' rx='10' fill='#f38ba8'/>
+<rect x='310' y='637' width='280' height='14' rx='0' fill='#f38ba8'/>
+<text x='450' y='642' font-size='10' fill='#1e1e2e' text-anchor='middle' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif">sync isolated — reference form matters</text>
+<rect x='318' y='661' width='264' height='168' rx='6' fill='#11111b'/>
+<text x='328' y='671' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// implicit isolated self:</text>
+<text x='328' y='685' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">func deposit(</text>
+<text x='328' y='699' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">    amount: Double) { ... }</text>
+<text x='328' y='713' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
+<text x='328' y='727' font-size='10' fill='#94e2d5' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">BankAccount.deposit  ❌→✓</text>
+<text x='328' y='741' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// thunk bug — Fixed by PR #86904</text>
+<text x='328' y='755' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
+<text x='328' y='769' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">actorInstance.deposit</text>
+<text x='328' y='783' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// ✓ already isolated to that actor</text>
+<text x='328' y='797' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//   (actorInstance can be self)</text>
+<text x='328' y='811' font-size='10' fill='#f38ba8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// ❌ outside or on a different actor</text>
+<rect x='600' y='623' width='280' height='216' rx='10' fill='#252535'/>
+<rect x='600' y='623' width='280' height='28' rx='10' fill='#f9e2af'/>
+<rect x='600' y='637' width='280' height='14' rx='0' fill='#f9e2af'/>
+<text x='740' y='642' font-size='10' fill='#1e1e2e' text-anchor='middle' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif">async isolated — partial apply warns</text>
+<rect x='608' y='661' width='264' height='168' rx='6' fill='#11111b'/>
+<text x='618' y='671' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// also isolated by default:</text>
+<text x='618' y='685' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">func load() async { ... }</text>
+<text x='618' y='699' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
+<text x='618' y='713' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">BankAccount.load  ✓</text>
+<text x='618' y='727' font-size='10' fill='#f9e2af' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">BankAccount().load  ⚠</text>
+<text x='618' y='741' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
+<text x='618' y='755' font-size='10' fill='#f9e2af' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// warning: Actor-isolated instance</text>
+<text x='618' y='769' font-size='10' fill='#f9e2af' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//   method can not be referenced</text>
+<text x='618' y='783' font-size='10' fill='#f9e2af' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//   from a nonisolated context</text>
+<text x='618' y='797' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//   — by design, not bug</text>
+<text x='618' y='811' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
+<text x='30' y='857' font-size='12' fill='#a6e3a1' text-anchor='start' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif" letter-spacing='1.5'>RESTORED BY PR #86904  (merged to main — not yet in any release)</text>
+<line x1='30' y1='866' x2='870' y2='866' stroke='#a6e3a1' stroke-width='0.5' opacity='0.3'/>
+<rect x='16' y='875' width='868' height='232' rx='10' fill='#1a2e1a' stroke='#a6e3a1' stroke-width='1.5'/>
+<rect x='20' y='879' width='860' height='224' rx='6' fill='#11111b'/>
+<text x='30' y='889' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// — Unapplied type-level reference (now fixed):</text>
+<text x='30' y='903' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">let fn = BankAccount.deposit(amount:)</text>
+<text x='30' y='917' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// ✓ type: (isolated BankAccount) -&gt; (Double) -&gt; Void</text>
+<text x='30' y='931' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
+<text x='30' y='945' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Sync usage within actor context (no await):</text>
+<text x='30' y='959' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">extension BankAccount {</text>
+<text x='30' y='973' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">    func batch(_ amounts: [Double]) {</text>
+<text x='30' y='987' font-size='10' fill='#94e2d5' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">        let op = BankAccount.deposit(amount:)</text>
+<text x='30' y='1001' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">        amounts.forEach { op(self)($0) }  // ✓ sync</text>
+<text x='30' y='1015' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">    }</text>
+<text x='30' y='1029' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">}</text>
+<text x='30' y='1043' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
+<text x='30' y='1057' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// — Partial application: context-dependent</text>
+<text x='30' y='1071' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// actorInstance.deposit  ✓  (already isolated to it)</text>
+<text x='30' y='1085' font-size='10' fill='#f38ba8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// BankAccount().deposit  ❌  (outside or different actor)</text>
+<rect x='20' y='1125' width='860' height='30' rx='8' fill='#252535' stroke='#89b4fa' stroke-width='1'/>
+<text x='36' y='1144' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif">⚙️  Try it yourself:</text>
+<text x='160' y='1144' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">install the main branch Swift toolchain from swift.org/install and select it via Xcode → Toolchains.</text>
+<text x='30' y='1173' font-size='12' fill='#94e2d5' text-anchor='start' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif" letter-spacing='1.5'>WHAT 'isolated' MEANS IN THE TYPE SIGNATURE</text>
+<line x1='30' y1='1182' x2='870' y2='1182' stroke='#94e2d5' stroke-width='0.5' opacity='0.3'/>
+<rect x='20' y='1195' width='420' height='228' rx='10' fill='#252535' stroke='#94e2d5' stroke-width='1.5'/>
+<text x='36' y='1217' font-size='11' fill='#94e2d5' text-anchor='start' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif">Breaking down the type signature</text>
+<rect x='30' y='1229' width='400' height='182' rx='6' fill='#11111b'/>
+<text x='40' y='1239' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// BankAccount.deposit(amount:) has type:</text>
+<text x='40' y='1253' font-size='10' fill='#94e2d5' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// (isolated BankAccount) -&gt; (Double) -&gt; Void</text>
+<text x='40' y='1267' font-size='10' fill='#94e2d5' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//  ^^^^^^^^^^^^^^^^^^^^^^^^^</text>
+<text x='40' y='1281' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
+<text x='40' y='1295' font-size='10' fill='#f9e2af' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// 'isolated BankAccount':</text>
+<text x='40' y='1309' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//   The actor instance you supply as 1st argument.</text>
+<text x='40' y='1323' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//   'isolated' means the call runs INSIDE that</text>
+<text x='40' y='1337' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//   actor — synchronously, no await needed.</text>
+<text x='40' y='1351' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace"></text>
+<text x='40' y='1365' font-size='10' fill='#f9e2af' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// -&gt; (Double) -&gt; Void  (the rest of the args):</text>
+<text x='40' y='1379' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//   Curried: pass the actor → get back a function</text>
+<text x='40' y='1393' font-size='10' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">//   that accepts the original argument(s).</text>
+<rect x='460' y='1195' width='420' height='228' rx='10' fill='#252535' stroke='#a6e3a1' stroke-width='1.5'/>
+<text x='476' y='1217' font-size='11' fill='#a6e3a1' text-anchor='start' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif">How to call it — inside the actor</text>
+<rect x='470' y='1229' width='400' height='182' rx='6' fill='#11111b'/>
+<text x='480' y='1239' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">// Inside the actor — pass self as the instance:</text>
+<text x='480' y='1253' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">extension BankAccount {</text>
+<text x='480' y='1267' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">    func batch(_ amounts: [Double]) {</text>
+<text x='480' y='1281' font-size='10' fill='#94e2d5' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">        let op = BankAccount.deposit(amount:)</text>
+<text x='480' y='1295' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">        // op type: (isolated BankAccount)</text>
+<text x='480' y='1309' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">        //              -&gt; (Double) -&gt; Void</text>
+<text x='480' y='1323' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">        amounts.forEach {</text>
+<text x='480' y='1337' font-size='10' fill='#a6e3a1' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">            op(self)($0)  // ✓ sync, no await</text>
+<text x='480' y='1351' font-size='10' fill='#6c7086' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">            // same as: self.deposit(amount: $0)</text>
+<text x='480' y='1365' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">        }</text>
+<text x='480' y='1379' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">    }</text>
+<text x='480' y='1393' font-size='10' fill='#cdd6f4' text-anchor='start' font-weight='normal' font-family="JetBrains Mono, 'Courier New', monospace">}</text>
+<text x='30' y='1445' font-size='12' fill='#6c7086' text-anchor='start' font-weight='700' font-family="'Helvetica Neue', Arial, sans-serif" letter-spacing='1.5'>REFERENCES</text>
+<line x1='30' y1='1454' x2='870' y2='1454' stroke='#6c7086' stroke-width='0.5' opacity='0.3'/>
+<rect x='20' y='1467' width='860' height='110' rx='8' fill='#252535'/>
+<a href='https://github.com/swiftlang/swift-evolution/blob/main/proposals/0313-actor-isolation-control.md' target='_blank'>
+<text x='36' y='1483' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">↗</text>
+<text x='52' y='1483' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">SE-0313 · Improved control over actor isolation</text>
+</a>
+<a href='https://github.com/swiftlang/swift/issues/80454' target='_blank'>
+<text x='36' y='1503' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">↗</text>
+<text x='52' y='1503' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">GitHub issue #80454 · Confusing diagnostics for partially applied actor method references</text>
+</a>
+<a href='https://forums.swift.org/t/something-broke-se-0313/78958' target='_blank'>
+<text x='36' y='1523' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">↗</text>
+<text x='52' y='1523' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">Swift Forums · Something broke SE-0313</text>
+</a>
+<a href='https://github.com/swiftlang/swift/pull/86904' target='_blank'>
+<text x='36' y='1543' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">↗</text>
+<text x='52' y='1543' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">PR #86904 · Fix thunk emission for function types with isolated parameters</text>
+</a>
+<a href='https://github.com/apple/swift/pull/34051' target='_blank'>
+<text x='36' y='1563' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">↗</text>
+<text x='52' y='1563' font-size='10' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">PR #34051 · Prohibit partial application of actor-isolated methods</text>
+</a>
+<line x1='20' y1='1595' x2='880' y2='1595' stroke='#45475a' stroke-width='0.5' opacity='0.3'/>
+<a href='https://bsky.app/profile/kingawilczek.bsky.social' target='_blank'>
+<path d='M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266 .902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.204-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z' fill='#89b4fa' transform='translate(32.5,1612.0) scale(0.5833)'/>
+<text x='51.5' y='1622.92' font-size='9.5' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">kingawilczek</text>
+</a>
+<a href='https://x.com/kiwi_code' target='_blank'>
+<path d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z' fill='#a6adc8' transform='translate(190.8,1612.0) scale(0.5833)'/>
+<text x='209.75' y='1622.92' font-size='9.5' fill='#a6adc8' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">kiwi_code</text>
+</a>
+<a href='https://www.reddit.com/u/wolfie_is_free' target='_blank'>
+<path d='M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326 .326 0 0 0-.232-.095z' fill='#fab387' transform='translate(327.0,1612.0) scale(0.5833)'/>
+<text x='346.0' y='1622.92' font-size='9.5' fill='#fab387' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">wolfie_is_free</text>
+</a>
+<a href='https://www.linkedin.com/in/kinga-wilczek' target='_blank'>
+<path d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z' fill='#89b4fa' transform='translate(479.8,1612.0) scale(0.5833)'/>
+<text x='498.75' y='1622.92' font-size='9.5' fill='#89b4fa' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">kinga-wilczek</text>
+</a>
+<a href='https://github.com/kingawilczek' target='_blank'>
+<path d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12' fill='#cba6f7' transform='translate(632.5,1612.0) scale(0.5833)'/>
+<text x='651.5' y='1622.92' font-size='9.5' fill='#cba6f7' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">kingawilczek</text>
+</a>
+<a href='https://blog.kiwicode.dev' target='_blank'>
+<circle cx='789.5' cy='1619.0' r='7.0' fill='none' stroke='#94e2d5' stroke-width='1.4'/>
+<ellipse cx='789.5' cy='1619.0' rx='2.9' ry='7.0' fill='none' stroke='#94e2d5' stroke-width='1.4'/>
+<line x1='782.5' y1='1619.0' x2='796.5' y2='1619.0' stroke='#94e2d5' stroke-width='1.4'/>
+<text x='801.5' y='1622.92' font-size='9.5' fill='#94e2d5' text-anchor='start' font-weight='normal' font-family="'Helvetica Neue', Arial, sans-serif">kiwicode.dev</text>
+</a>
+</svg>

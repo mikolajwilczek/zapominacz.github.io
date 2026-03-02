@@ -3,4 +3,9 @@ languageCode: "en-us"
 title: "Kiwicode.dev blog"
 theme: "PaperMod"
 
+params:
+  author:
+    name: "Kinga Wilczek"
+    email: "kiwicode.dev@gmail.com"
+
 enableRobotsTXT: true
